@@ -17,7 +17,8 @@ export function middleware(request: NextRequest) {
 
   // 1. Root (/) ALWAYS redirects to /auth/login and clears any stale session so the login screen is displayed first
   if (pathname === "/") {
-    const response = NextResponse.redirect(new URL("/auth/login", request.url));
+    const loginUrl = new URL("/auth/login", request.nextUrl);
+    const response = NextResponse.redirect(loginUrl);
     response.cookies.delete("gvk_auth_session");
     response.cookies.set("gvk_auth_session", "", {
       httpOnly: true,
@@ -31,67 +32,93 @@ export function middleware(request: NextRequest) {
   }
 
   // 2. Generic dashboard (/dashboard) redirects based on authenticated session, or to login
-  if (pathname === "/dashboard") {
+  if (pathname === "/dashboard" || pathname === "/dashboard/") {
     if (!userRole) {
-      return NextResponse.redirect(new URL("/auth/login", request.url));
+      return NextResponse.redirect(new URL("/auth/login", request.nextUrl));
     }
     if (userRole === "student") {
-      return NextResponse.redirect(new URL("/student/dashboard", request.url));
+      return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
     }
     if (userRole === "counselor") {
-      return NextResponse.redirect(new URL("/counselor/dashboard", request.url));
+      return NextResponse.redirect(new URL("/counselor/dashboard", request.nextUrl));
     }
     if (userRole === "admin") {
-      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+      return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
     }
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(new URL("/auth/login", request.nextUrl));
   }
 
-  // 2. Guard Student Portal
-  if (pathname.startsWith("/student")) {
+  // 3. Guard Student Portal
+  if (pathname === "/student" || pathname === "/student/") {
     if (!userRole) {
-      const loginUrl = new URL("/auth/login", request.url);
+      const loginUrl = new URL("/auth/login", request.nextUrl);
+      loginUrl.searchParams.set("role", "student");
+      return NextResponse.redirect(loginUrl);
+    }
+    return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
+  }
+
+  if (pathname.startsWith("/student/")) {
+    if (!userRole) {
+      const loginUrl = new URL("/auth/login", request.nextUrl);
       loginUrl.searchParams.set("role", "student");
       return NextResponse.redirect(loginUrl);
     }
     if (userRole !== "student") {
       if (userRole === "admin") {
-        return NextResponse.redirect(new URL("/admin/dashboard", request.url));
+        return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
       }
-      return NextResponse.redirect(new URL("/counselor/dashboard", request.url));
+      return NextResponse.redirect(new URL("/counselor/dashboard", request.nextUrl));
     }
   }
 
-  // 3. Guard Counselor Portal
-  if (pathname.startsWith("/counselor")) {
+  // 4. Guard Counselor Portal
+  if (pathname === "/counselor" || pathname === "/counselor/") {
     if (!userRole) {
-      const loginUrl = new URL("/auth/login", request.url);
+      const loginUrl = new URL("/auth/login", request.nextUrl);
+      loginUrl.searchParams.set("role", "counselor");
+      return NextResponse.redirect(loginUrl);
+    }
+    return NextResponse.redirect(new URL("/counselor/dashboard", request.nextUrl));
+  }
+
+  if (pathname.startsWith("/counselor/")) {
+    if (!userRole) {
+      const loginUrl = new URL("/auth/login", request.nextUrl);
       loginUrl.searchParams.set("role", "counselor");
       return NextResponse.redirect(loginUrl);
     }
     if (userRole !== "counselor" && userRole !== "admin") {
-      return NextResponse.redirect(new URL("/student/dashboard", request.url));
+      return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
     }
   }
 
-  // 4. Guard Admin Portal and legacy admin login endpoints
+  // 5. Guard Admin Portal and legacy admin login endpoints
   if (pathname === "/masters_admin" || pathname === "/admin/login") {
-    const loginUrl = new URL("/auth/login", request.url);
+    const loginUrl = new URL("/auth/login", request.nextUrl);
     loginUrl.searchParams.set("role", "admin");
     return NextResponse.redirect(loginUrl);
   }
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname === "/admin" || pathname === "/admin/") {
+    if (!userRole || userRole !== "admin") {
+      const loginUrl = new URL("/auth/login", request.nextUrl);
+      loginUrl.searchParams.set("role", "admin");
+      return NextResponse.redirect(loginUrl);
+    }
+    return NextResponse.redirect(new URL("/admin/dashboard", request.nextUrl));
+  }
+
+  if (pathname.startsWith("/admin/")) {
     // Require admin role for all /admin routes
     if (!userRole || userRole !== "admin") {
-      const loginUrl = new URL("/auth/login", request.url);
+      const loginUrl = new URL("/auth/login", request.nextUrl);
       loginUrl.searchParams.set("role", "admin");
       return NextResponse.redirect(loginUrl);
     }
   }
 
-  // 5. Handle /auth/login navigation: Always display the login screen panel!
-  // Never auto-redirect to dashboard when arriving at /auth/login.
+  // 6. Handle /auth/login navigation: Always display the login screen panel!
   // If an existing session cookie exists, clear it so the user starts with a clean, unauthenticated login screen.
   if (pathname === "/auth/login") {
     if (userRole) {
@@ -117,8 +144,12 @@ export const config = {
   matcher: [
     "/",
     "/dashboard",
+    "/dashboard/:path*",
+    "/student",
     "/student/:path*",
+    "/counselor",
     "/counselor/:path*",
+    "/admin",
     "/admin/:path*",
     "/auth/login",
     "/masters_admin",
