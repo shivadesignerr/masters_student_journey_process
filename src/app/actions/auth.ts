@@ -217,7 +217,7 @@ export async function quickDemoLogin(targetRole: "student" | "counselor" | "admi
   const identifier =
     targetRole === "student"
       ? "GVK-STU-2026-0042"
-      : "GVK-EMP-014";
+      : "GVK-EMP-001";
 
   const user = dataStore.authenticate(identifier, targetRole);
 

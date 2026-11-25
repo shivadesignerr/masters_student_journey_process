@@ -416,7 +416,7 @@ export function AdminNavbar({
                   className="w-full text-left flex items-center gap-2.5 px-3 py-2 rounded-xl hover:bg-slate-50 text-gvk-navy font-semibold transition-colors"
                 >
                   <Users className="w-4 h-4 text-blue-600 shrink-0" />
-                  <span>Provision New Counselor</span>
+                  <span>Add New Counselor</span>
                 </button>
                 <button
                   type="button"

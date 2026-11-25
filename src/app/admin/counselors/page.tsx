@@ -147,12 +147,14 @@ export default function AdminCounselorsPage() {
     e.preventDefault();
     if (!form.firstName || !form.lastName || !form.email) return;
 
+    const autoCode = form.employeeIdCode?.trim() || dataStore.getNextCounselorEmployeeCode();
+
     const created = dataStore.createCounselor({
       firstName: form.firstName,
       lastName: form.lastName,
       email: form.email,
       phone: form.phone || "+91 98490 55555",
-      employeeIdCode: form.employeeIdCode || undefined,
+      employeeIdCode: autoCode,
       specializationCountries: form.specializationCountries,
       password: form.password || "GvkCounselor@2026",
     });
@@ -208,7 +210,7 @@ export default function AdminCounselorsPage() {
             </h1>
           </div>
           <p className="text-xs sm:text-sm text-gvk-text-secondary">
-            Provision advisory employee accounts, monitor assigned candidate loads, and inspect application oversight desks.
+            Add and manage advisory employee accounts, monitor assigned candidate loads, and inspect application oversight desks.
           </p>
         </div>
 
@@ -218,7 +220,7 @@ export default function AdminCounselorsPage() {
           className="bg-[#253775] hover:bg-[#1a2754] text-white font-bold text-xs flex items-center gap-1.5 shadow-xs self-start md:self-auto"
         >
           <Plus className="w-4 h-4" />
-          <span>+ Provision Counselor</span>
+          <span>Add Counselor</span>
         </Button>
       </div>
 
@@ -337,7 +339,7 @@ export default function AdminCounselorsPage() {
                               type="button"
                               onClick={() => handleCopy(email, `email-${c.id}`)}
                               className="p-1 rounded text-slate-400 hover:text-[#253775] hover:bg-slate-100 transition-colors"
-                              title="Copy Official Email"
+                              title="Copy Email"
                             >
                               {copiedId === `email-${c.id}` ? (
                                 <Check className="w-3 h-3 text-emerald-600" />
@@ -507,11 +509,11 @@ export default function AdminCounselorsPage() {
         </div>
       </div>
 
-      {/* Provision Counselor Modal */}
+      {/* Add Counselor Modal */}
       <AdminModal
         isOpen={provisionModalOpen}
         onClose={() => setProvisionModalOpen(false)}
-        title="Provision Senior Admissions Counselor"
+        title="Add Admissions Counselor"
         subtitle="Create advisor identity, allocate destination specializations, and issue credentials."
         maxWidth="lg"
       >
@@ -539,12 +541,12 @@ export default function AdminCounselorsPage() {
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block font-bold text-gvk-navy mb-1">Official GVK Email *</label>
+              <label className="block font-bold text-gvk-navy mb-1">Email Address *</label>
               <Input
                 type="email"
                 value={form.email}
                 onChange={(e) => setForm({ ...form, email: e.target.value })}
-                placeholder="counselor.vikram@gvkedutech.com"
+                placeholder="e.g. counselor.vikram@gmail.com"
                 required
               />
             </div>
@@ -563,7 +565,7 @@ export default function AdminCounselorsPage() {
             <Input
               value={form.employeeIdCode}
               onChange={(e) => setForm({ ...form, employeeIdCode: e.target.value })}
-              placeholder="e.g. GVK-EMP-015 (Auto-generated if empty)"
+              placeholder={`e.g. ${dataStore.getNextCounselorEmployeeCode()} (Auto-generated if empty)`}
             />
           </div>
 
@@ -590,7 +592,7 @@ export default function AdminCounselorsPage() {
               Cancel
             </Button>
             <Button type="submit" className="bg-[#253775] hover:bg-[#1a2754] text-white font-bold">
-              Provision Counselor Account
+              Add Counselor
             </Button>
           </div>
         </form>
@@ -691,12 +693,12 @@ export default function AdminCounselorsPage() {
         </AdminModal>
       )}
 
-      {/* Provisioned Credentials Modal */}
+      {/* Added Credentials Modal */}
       {credentialsModal && (
         <AdminModal
           isOpen={true}
           onClose={() => setCredentialsModal(null)}
-          title="Counselor Desk Provisioned"
+          title="Counselor Account Added Successfully"
           subtitle="Authorized credentials for the counselor portal."
           maxWidth="md"
         >

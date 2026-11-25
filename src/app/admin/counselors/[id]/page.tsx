@@ -363,7 +363,7 @@ export default function CounselorWorkspacePage() {
                   type="button"
                   onClick={() => handleCopyText(counselor.email, "email")}
                   className="p-1 rounded text-slate-400 hover:text-[#253775] hover:bg-slate-100 transition-colors"
-                  title="Copy Official Email"
+                  title="Copy Email"
                 >
                   {copiedField === "email" ? (
                     <Check className="w-3 h-3 text-emerald-600" />

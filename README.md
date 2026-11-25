@@ -109,7 +109,7 @@ For rapid evaluation, the login page (`/auth/login`) includes **One-Click Quick 
 | Role | Identifier (ID or Email) | Demo Password | Default Redirect |
 | :--- | :--- | :--- | :--- |
 | **Student** | `GVK-STU-2026-0042` or `rahul.sharma@gmail.com` | `GVKStudent@2026` | `/student/dashboard` |
-| **Counselor** | `GVK-EMP-014` or `counselor.priya@gvkedutech.com` | `GVKCounselor@2026` | `/counselor/dashboard` |
+| **Counselor** | `GVK-EMP-001` or `counselor.priya@gmail.com` | `GVKCounselor@2026` | `/counselor/dashboard` |
 
 ---
 

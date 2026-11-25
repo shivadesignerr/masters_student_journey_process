@@ -342,7 +342,7 @@ export const initialStore: DbStore = {
   counselorProfiles: [
     {
       id: "usr-counselor-01",
-      employeeIdCode: "GVK-EMP-014",
+      employeeIdCode: "GVK-EMP-001",
       firstName: "Priya",
       lastName: "Varma",
       phone: "+91 98490 12345",
@@ -354,7 +354,7 @@ export const initialStore: DbStore = {
     },
     {
       id: "usr-counselor-1795090237245",
-      employeeIdCode: "GVK-EMP-015",
+      employeeIdCode: "GVK-EMP-002",
       firstName: "Vikram",
       lastName: "Rao",
       phone: "+91 98490 12346",
@@ -366,7 +366,7 @@ export const initialStore: DbStore = {
     },
     {
       id: "usr-counselor-03",
-      employeeIdCode: "GVK-EMP-016",
+      employeeIdCode: "GVK-EMP-003",
       firstName: "Ananya",
       lastName: "Sen",
       phone: "+91 98490 12347",
@@ -378,7 +378,7 @@ export const initialStore: DbStore = {
     },
     {
       id: "usr-counselor-04",
-      employeeIdCode: "GVK-EMP-017",
+      employeeIdCode: "GVK-EMP-004",
       firstName: "Rajesh",
       lastName: "Mehta",
       phone: "+91 98490 12348",
@@ -1425,14 +1425,32 @@ export const dataStore = {
     // 3. Counselor authentication (search ALL counselors by Employee ID code or email)
     if (role === "counselor" || !role) {
       const counselor = store.counselorProfiles.find(
-        (c) =>
-          c.employeeIdCode.toLowerCase() === cleanId ||
-          store.users.some((u) => u.id === c.id && u.email.toLowerCase() === cleanId) ||
-          cleanId === "counselor1@gmail.com" ||
-          cleanId === "counselor.priya@gvkedutech.com" ||
-          cleanId === "shivdesignerr@gmail.com" ||
-          cleanId.includes("shiva") ||
-          cleanId.includes(c.firstName.toLowerCase())
+        (c) => {
+          const codeClean = c.employeeIdCode.toLowerCase();
+          const codeNum = c.employeeIdCode.replace(/\D/g, "");
+          const inputNum = cleanId.replace(/\D/g, "");
+
+          const matchesCode =
+            codeClean === cleanId ||
+            cleanId === `gvk-emp-${codeNum}` ||
+            cleanId === `gvk-emp-0${codeNum}` ||
+            cleanId === `gvk-emp-00${codeNum}` ||
+            (cleanId.startsWith("gvk-emp-") && parseInt(inputNum, 10) === parseInt(codeNum, 10)) ||
+            (c.id === "usr-counselor-01" && (cleanId === "gvk-emp-014" || cleanId === "gvk-emp-14")) ||
+            (c.id === "usr-counselor-1795090237245" && (cleanId === "gvk-emp-015" || cleanId === "gvk-emp-15"));
+
+          const userEmail = store.users.find((u) => u.id === c.id)?.email.toLowerCase() || "";
+          const matchesEmail = userEmail === cleanId;
+
+          const matchesSpecial =
+            cleanId === "counselor1@gmail.com" ||
+            cleanId === "counselor.priya@gvkedutech.com" ||
+            cleanId === "shivdesignerr@gmail.com" ||
+            cleanId.includes("shiva") ||
+            cleanId.includes(c.firstName.toLowerCase());
+
+          return matchesCode || matchesEmail || matchesSpecial;
+        }
       );
       if (counselor) {
         return {
@@ -1448,7 +1466,21 @@ export const dataStore = {
     return null;
   },
 
-  // Multi-Counselor Provisioning (Admin Action)
+  // Auto-generate sequential employee ID code starting from 1 (e.g. GVK-EMP-001, GVK-EMP-002, GVK-EMP-003...)
+  getNextCounselorEmployeeCode(): string {
+    const codes = store.counselorProfiles
+      .map((c) => {
+        const match = c.employeeIdCode.match(/(\d+)$/);
+        return match ? parseInt(match[1], 10) : 0;
+      })
+      .filter((n) => !isNaN(n) && n > 0);
+
+    const maxCode = codes.length > 0 ? Math.max(...codes) : 0;
+    const nextNum = maxCode + 1;
+    return `GVK-EMP-${String(nextNum).padStart(3, "0")}`;
+  },
+
+  // Multi-Counselor Addition (Admin Action)
   createCounselor(data: {
     firstName: string;
     lastName: string;
@@ -1459,14 +1491,14 @@ export const dataStore = {
     password?: string;
   }) {
     const id = `usr-counselor-${Date.now()}`;
-    const code = data.employeeIdCode?.trim() || `GVK-EMP-${Math.floor(100 + Math.random() * 900)}`;
+    const code = data.employeeIdCode?.trim() || this.getNextCounselorEmployeeCode();
 
     const userObj = {
       id,
       email: data.email.trim().toLowerCase(),
       role: "counselor" as UserRole,
       status: "active" as const,
-      passwordHash: data.password || "Gvk@2026",
+      passwordHash: data.password || "GvkCounselor@2026",
     };
 
     const profileObj = {
@@ -1488,9 +1520,9 @@ export const dataStore = {
     this.logActivity({
       userId: "usr-admin-01",
       role: "admin",
-      action: "COUNSELOR_PROVISIONED",
-      title: `Counselor Provisioned: ${profileObj.firstName} ${profileObj.lastName}`,
-      description: `Admin provisioned senior counselor account ${code} (${userObj.email}).`,
+      action: "COUNSELOR_ADDED",
+      title: `Counselor Added: ${profileObj.firstName} ${profileObj.lastName}`,
+      description: `Admin added admissions counselor account ${code} (${userObj.email}).`,
       entityType: "counselor_profile",
       entityId: id,
       newValue: { employeeIdCode: code, email: userObj.email },

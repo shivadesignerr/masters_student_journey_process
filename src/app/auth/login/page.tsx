@@ -188,7 +188,7 @@ function LoginForm() {
               activeTab === "admin"
                 ? "e.g. GVK_masters_admin or admin@gvkedutech.com"
                 : activeTab === "counselor"
-                ? "e.g. GVK-EMP-014 or counselor@gvkedutech.com"
+                ? "e.g. GVK-EMP-001 or counselor@gmail.com"
                 : "e.g. GVK-STU-2026-0042 or rahul@gmail.com"
             }
             value={identifier}

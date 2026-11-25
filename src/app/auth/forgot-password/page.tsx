@@ -392,7 +392,7 @@ function ForgotPasswordContent() {
                     placeholder={
                       role === "student"
                         ? "e.g. rahul.sharma@gmail.com or GVK-STU-2026-0042"
-                        : "e.g. counselor.priya@gvkedutech.com or GVK-EMP-014"
+                        : "e.g. counselor.priya@gmail.com or GVK-EMP-001"
                     }
                     value={identifier}
                     onChange={(e) => setIdentifier(e.target.value)}

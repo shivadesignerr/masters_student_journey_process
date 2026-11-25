@@ -8,7 +8,6 @@ import { Input } from "@/components/ui/input";
 import {
   MessageSquare,
   User,
-  Phone,
   Mail,
   Send,
   Clock,
@@ -342,8 +341,6 @@ export default function StudentCounselorPage() {
                       </div>
                       <div className="flex flex-wrap items-center gap-x-3 gap-y-0.5 text-[11px] text-slate-500 font-mono mt-0.5">
                         <span>{activeCounselor.employeeIdCode}</span>
-                        <span>•</span>
-                        <span>{activeCounselor.phone}</span>
                         <span>•</span>
                         <span className="text-slate-600 font-sans">
                           {(activeCounselor.specializationCountries || []).join(", ") || "UK, Ireland, Australia"}
