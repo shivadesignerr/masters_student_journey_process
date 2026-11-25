@@ -6,6 +6,7 @@ import { dataStore } from "@/lib/data/store";
 import { AdminCard } from "@/components/admin/AdminCard";
 import { AdminModal } from "@/components/admin/AdminModal";
 import { UniversityBadge } from "@/components/shared/UniversityLogo";
+import { UniversityCombobox } from "@/components/shared/UniversityCombobox";
 import {
   BookOpen,
   Plus,
@@ -89,7 +90,7 @@ export default function CourseManagementPage() {
 
   const handleOpenAdd = () => {
     setFormData({
-      universityName: universities[0]?.name || "University of Manchester",
+      universityName: "",
       courseName: "",
       degreeLevel: "Postgraduate (MSc)",
       discipline: "Computer Science & IT",
@@ -130,6 +131,10 @@ export default function CourseManagementPage() {
 
   const handleCreateCourse = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.universityName?.trim()) {
+      alert("Please search and select an affiliated university.");
+      return;
+    }
     dataStore.addCourse({
       universityName: formData.universityName,
       courseName: formData.courseName,
@@ -405,21 +410,21 @@ export default function CourseManagementPage() {
       >
         <form onSubmit={isAddOpen ? handleCreateCourse : handleUpdateCourse} className="space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Affiliated University
-            </label>
-            <select
-              required
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-semibold text-slate-700">
+                Affiliated University *
+              </label>
+              <span className="text-[10px] text-slate-400 font-medium">
+                Type to search from {universities.length} universities
+              </span>
+            </div>
+            <UniversityCombobox
+              universities={universities}
               value={formData.universityName}
-              onChange={(e) => setFormData({ ...formData, universityName: e.target.value })}
-              className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-[#253775] focus:border-transparent outline-none bg-white text-slate-800"
-            >
-              {universities.map((u) => (
-                <option key={u.id} value={u.name}>
-                  {u.name} ({u.country})
-                </option>
-              ))}
-            </select>
+              onChange={(uniName) => setFormData({ ...formData, universityName: uniName })}
+              placeholder="🔍 Type to search university (e.g. Manchester, Oxford, Aston)..."
+              required
+            />
           </div>
 
           <div>
