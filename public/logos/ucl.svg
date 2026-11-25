@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- UCL Logo Banner -->
+  <g transform="translate(15, 12)">
+    <rect x="0" y="4" width="56" height="48" rx="8" fill="#500778"/>
+    <text x="28" y="38" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#FFFFFF" text-anchor="middle" letter-spacing="2">UCL</text>
+  </g>
+  <text x="82" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="16" font-weight="800" fill="#1E293B" letter-spacing="1">University College London</text>
+  <text x="82" y="54" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#64748B" letter-spacing="1.5">LONDON'S GLOBAL UNIVERSITY</text>
+</svg>

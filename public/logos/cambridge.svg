@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- University of Cambridge Logo Banner -->
+  <g transform="translate(15, 10)">
+    <!-- Cambridge Red Heraldic Shield with Ermine Cross -->
+    <path d="M25 4 L48 10 V36 C48 48 38 56 25 60 C12 56 2 48 2 36 V10 Z" fill="#A81C26" stroke="#D4AF37" stroke-width="2"/>
+    <!-- Ermine Cross -->
+    <rect x="22" y="8" width="6" height="48" fill="#FFFFFF"/>
+    <rect x="6" y="24" width="38" height="6" fill="#FFFFFF"/>
+    <!-- Closed Book at center of cross -->
+    <rect x="20" y="22" width="10" height="10" rx="1" fill="#D4AF37" stroke="#A81C26" stroke-width="1"/>
+    <!-- Lions in quadrants -->
+    <circle cx="14" cy="16" r="3" fill="#D4AF37"/>
+    <circle cx="36" cy="16" r="3" fill="#D4AF37"/>
+    <circle cx="14" cy="38" r="3" fill="#D4AF37"/>
+    <circle cx="36" cy="38" r="3" fill="#D4AF37"/>
+  </g>
+  <text x="75" y="34" font-family="'Times New Roman', Times, serif" font-size="14" font-weight="bold" fill="#6B7280" letter-spacing="1.5">UNIVERSITY OF</text>
+  <text x="75" y="56" font-family="'Times New Roman', Times, serif" font-size="21" font-weight="900" fill="#A81C26" letter-spacing="2.5">CAMBRIDGE</text>
+</svg>

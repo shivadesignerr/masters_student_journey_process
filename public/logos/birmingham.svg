@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- University of Birmingham Official Logo Banner -->
+  <g transform="translate(15, 10)">
+    <!-- Crest Shield -->
+    <path d="M25 4 L48 10 V36 C48 48 38 56 25 60 C12 56 2 48 2 36 V10 Z" fill="#990000" stroke="#B8860B" stroke-width="2"/>
+    <!-- Double-headed lion & book elements inside shield -->
+    <path d="M25 10 L38 20 H12 Z" fill="#FFC72C"/>
+    <circle cx="25" cy="27" r="7" fill="#FFC72C"/>
+    <path d="M18 36 C18 32 32 32 32 36 V46 C32 49 18 49 18 46 Z" fill="#FFC72C"/>
+    <path d="M12 28 C10 24 14 20 18 24 M38 28 C40 24 36 20 32 24" stroke="#FFC72C" stroke-width="2" fill="none"/>
+    <circle cx="21" cy="25" r="1.5" fill="#990000"/>
+    <circle cx="29" cy="25" r="1.5" fill="#990000"/>
+    <path d="M16 48 H34" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+  </g>
+  <!-- Typography -->
+  <text x="75" y="34" font-family="'Times New Roman', Times, serif" font-size="15" font-weight="bold" fill="#002147" letter-spacing="1">UNIVERSITY OF</text>
+  <text x="75" y="55" font-family="'Times New Roman', Times, serif" font-size="20" font-weight="900" fill="#990000" letter-spacing="2">BIRMINGHAM</text>
+</svg>

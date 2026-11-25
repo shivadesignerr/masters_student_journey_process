@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- University of Oxford Logo Banner -->
+  <g transform="translate(15, 10)">
+    <!-- Oxford Navy Shield with Crown and Open Book -->
+    <path d="M25 4 L48 10 V36 C48 48 38 56 25 60 C12 56 2 48 2 36 V10 Z" fill="#002147" stroke="#C5A059" stroke-width="2"/>
+    <!-- Crowns -->
+    <path d="M16 16 L18 20 L20 16 L22 20 L24 16 L23 22 H17 Z M26 16 L28 20 L30 16 L32 20 L34 16 L33 22 H27 Z M21 44 L23 48 L25 44 L27 48 L29 44 L28 50 H22 Z" fill="#FFD700"/>
+    <!-- Open Book -->
+    <rect x="15" y="26" width="20" height="14" rx="2" fill="#FFFFFF" stroke="#C5A059" stroke-width="1"/>
+    <line x1="25" y1="26" x2="25" y2="40" stroke="#002147" stroke-width="1"/>
+    <!-- Book lines representing text: Dominus Illuminatio Mea -->
+    <line x1="18" y1="30" x2="23" y2="30" stroke="#002147" stroke-width="1"/>
+    <line x1="18" y1="33" x2="23" y2="33" stroke="#002147" stroke-width="1"/>
+    <line x1="18" y1="36" x2="23" y2="36" stroke="#002147" stroke-width="1"/>
+    <line x1="27" y1="30" x2="32" y2="30" stroke="#002147" stroke-width="1"/>
+    <line x1="27" y1="33" x2="32" y2="33" stroke="#002147" stroke-width="1"/>
+    <line x1="27" y1="36" x2="32" y2="36" stroke="#002147" stroke-width="1"/>
+  </g>
+  <text x="75" y="34" font-family="'Times New Roman', Times, serif" font-size="14" font-weight="bold" fill="#6B7280" letter-spacing="1.5">UNIVERSITY OF</text>
+  <text x="75" y="56" font-family="'Times New Roman', Times, serif" font-size="22" font-weight="900" fill="#002147" letter-spacing="3">OXFORD</text>
+</svg>

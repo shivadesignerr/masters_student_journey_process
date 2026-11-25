@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 80" width="320" height="80">
+  <!-- University of Warwick Official Logo Banner -->
+  <g transform="translate(15, 10)">
+    <!-- Warwick Crest Shield: Burgundy & Purple -->
+    <path d="M25 4 L48 10 V36 C48 48 38 56 25 60 C12 56 2 48 2 36 V10 Z" fill="#5B2C6F" stroke="#E5B73B" stroke-width="2"/>
+    <!-- Castle turret -->
+    <rect x="18" y="16" width="14" height="10" rx="1" fill="#E5B73B"/>
+    <path d="M18 16 V13 H22 V16 H28 V13 H32 V16" stroke="#5B2C6F" stroke-width="1.5"/>
+    <!-- Bear & Ragged Staff / Elephant base -->
+    <path d="M14 36 C14 30 18 28 25 28 C32 28 36 30 36 36 V44 H32 V40 H28 V44 H22 V40 H18 V44 H14 Z" fill="#FFFFFF"/>
+    <circle cx="25" cy="33" r="2" fill="#E5B73B"/>
+  </g>
+  <!-- Modern Clean Warwick Typography -->
+  <text x="75" y="32" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="600" fill="#6B7280" letter-spacing="1.5">THE UNIVERSITY OF</text>
+  <text x="75" y="56" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="24" font-weight="900" fill="#3B184C" letter-spacing="3">WARWICK</text>
+</svg>
